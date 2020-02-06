@@ -10,13 +10,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="~/AngularSPA/ApiServices.js"></script>
     <script src="~/AngularSPA/Controllers/LoginController.js"></script>
     <script src="~/AngularSPA/App.js"></script>
 
 </head>
 <body>
-    <div> 
-        Vis are Login
+    <div ng-app="App" ng-controller="LoginController">
+        <div class="alert alert-danger" role="alert">
+            {{CurrentUser.Username}}
+        </div>
     </div>
 </body>
 </html>
