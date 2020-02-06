@@ -164,6 +164,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AngularSPA\ApiServices.js" />
     <Content Include="AngularSPA\App.js" />
     <Content Include="AngularSPA\Controllers\LoginController.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
