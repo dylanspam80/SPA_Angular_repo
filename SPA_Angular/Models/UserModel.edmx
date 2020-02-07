@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PetersPapers_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="ControllerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Controller">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="UserAction">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ActionId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ActionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAssignedRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserRoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Actions__Control__49C3F6B7">
+          <End Role="Controller" Type="Self.Controller" Multiplicity="1" />
+          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Controller">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="ControllerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserActio__Actio__4BAC3F29">
+          <End Role="Action" Type="Self.Action" Multiplicity="1" />
+          <End Role="UserAction" Type="Self.UserAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAction">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserActio__UserI__4CA06362">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserAction" Type="Self.UserAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAction">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAssig__UserI__47DBAE45">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserAssignedRole" Type="Self.UserAssignedRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAssignedRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAssig__UserR__48CFD27E">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="UserAssignedRole" Type="Self.UserAssignedRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAssignedRole">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PetersPapers_ModelStoreContainer">
+          <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Controller" EntityType="Self.Controller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAction" EntityType="Self.UserAction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAssignedRole" EntityType="Self.UserAssignedRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Actions__Control__49C3F6B7" Association="Self.FK__Actions__Control__49C3F6B7">
+            <End Role="Controller" EntitySet="Controller" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserActio__Actio__4BAC3F29" Association="Self.FK__UserActio__Actio__4BAC3F29">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="UserAction" EntitySet="UserAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserActio__UserI__4CA06362" Association="Self.FK__UserActio__UserI__4CA06362">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAction" EntitySet="UserAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAssig__UserI__47DBAE45" Association="Self.FK__UserAssig__UserI__47DBAE45">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAssignedRole" EntitySet="UserAssignedRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAssig__UserR__48CFD27E" Association="Self.FK__UserAssig__UserR__48CFD27E">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="UserAssignedRole" EntitySet="UserAssignedRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PetersPapers_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+          <Property Name="ControllerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Controller" Relationship="Self.FK__Actions__Control__49C3F6B7" FromRole="Action" ToRole="Controller" />
+          <NavigationProperty Name="Users" Relationship="Self.UserAction" FromRole="Action" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Controller">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actions" Relationship="Self.FK__Actions__Control__49C3F6B7" FromRole="Controller" ToRole="Action" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Actions" Relationship="Self.UserAction" FromRole="User" ToRole="Action" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.UserAssignedRole" FromRole="User" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.UserAssignedRole" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Actions__Control__49C3F6B7">
+          <End Role="Controller" Type="Self.Controller" Multiplicity="1" />
+          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Controller">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="ControllerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserAction">
+          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <Association Name="UserAssignedRole">
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actions" EntityType="Self.Action" />
+          <EntitySet Name="Controllers" EntityType="Self.Controller" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <AssociationSet Name="FK__Actions__Control__49C3F6B7" Association="Self.FK__Actions__Control__49C3F6B7">
+            <End Role="Controller" EntitySet="Controllers" />
+            <End Role="Action" EntitySet="Actions" />
+          </AssociationSet>
+          <AssociationSet Name="UserAction" Association="Self.UserAction">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserAssignedRole" Association="Self.UserAssignedRole">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PetersPapers_ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Actions">
+            <EntityTypeMapping TypeName="PetersPapers_Model.Action">
+              <MappingFragment StoreEntitySet="Action">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Controllers">
+            <EntityTypeMapping TypeName="PetersPapers_Model.Controller">
+              <MappingFragment StoreEntitySet="Controller">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PetersPapers_Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="PetersPapers_Model.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserAction" TypeName="PetersPapers_Model.UserAction" StoreEntitySet="UserAction">
+            <EndProperty Name="Action">
+              <ScalarProperty Name="Id" ColumnName="ActionId" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserAssignedRole" TypeName="PetersPapers_Model.UserAssignedRole" StoreEntitySet="UserAssignedRole">
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="UserRole">
+              <ScalarProperty Name="Id" ColumnName="UserRoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

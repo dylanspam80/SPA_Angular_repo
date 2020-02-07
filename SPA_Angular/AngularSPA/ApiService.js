@@ -1,7 +1,7 @@
 ﻿var ApiService = function ($http) {
     var result;
-    this.Get = function (controllerName, method, callback) {
-        result = $http.get('api/' + controllerName + '/' + method).success(
+    this.GetApiCall = function (controllerName, method, callback) {
+        result = $http.get('/' + controllerName + '/' + method).success(
             function (data, status) {
                 var event = {
                     result: data,
@@ -21,7 +21,7 @@
     }
 
     this.Post = function (controllerName, methodName, obj, callback) {
-        result = $http.post('api/' + controllerName + '/' + methodName, obj).success(function (data, status) {
+        result = $http.post('/' + controllerName + '/' + methodName, obj).success(function (data, status) {
             var event = {
                 result: data,
                 hasErrors: false
