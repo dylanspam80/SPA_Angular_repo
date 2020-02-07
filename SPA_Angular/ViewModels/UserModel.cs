@@ -14,7 +14,15 @@ namespace SPA_Angular.ViewModels
 
         public UserModel()
         {
-
+            Id = 0;
+            Username = "";
+            Password = "";
+        }
+        public UserModel(UserModel user)
+        {
+            Id = user.Id;
+            Username = user.Username;
+            Password = user.Password;
         }
         public UserModel GetFirstUser()
         {
@@ -30,6 +38,19 @@ namespace SPA_Angular.ViewModels
                 };
             }
             return returnUser;
+        }
+
+        public bool Login()
+        {
+            using (Entities db = new Entities())
+            {
+                var u = db.Users.Where(x => x.UserName == this.Username).FirstOrDefault();
+                if (u == null)
+                    return false;
+                else if (u.Password != this.Password)
+                    return false;
+                else return true;
+            }
         }
 
     }

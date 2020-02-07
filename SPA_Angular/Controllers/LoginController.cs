@@ -18,9 +18,14 @@ namespace SPA_Angular.Controllers
         }
 
         [HttpGet]
-        public string GetFirstUser()
+        public string GetEmptyUser()
         {
-            return JsonConvert.SerializeObject(new UserModel().GetFirstUser());
+            return JsonConvert.SerializeObject(new UserModel());
+        }
+        [HttpPost]
+        public bool Login(UserModel user)
+        {
+            return new UserModel(user).Login();
         }
     }
 }

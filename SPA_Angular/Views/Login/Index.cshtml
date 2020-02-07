@@ -17,9 +17,11 @@
 </head>
 <body>
     <div ng-app="App" ng-controller="LoginController">
-        <div class="alert alert-danger" role="alert">
-            {{models.CurrentUser.Username}}
-        </div>
+        <label>Username</label>
+        <input ng-model="models.CurrentUser.Username">
+        <label>Password</label>
+        <input ng-model="models.CurrentUser.Password">
+        <button ng-click="NavigateHome()">CLICK</button>
     </div>
 </body>
 </html>

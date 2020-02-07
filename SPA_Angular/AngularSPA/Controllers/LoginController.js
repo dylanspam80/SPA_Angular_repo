@@ -3,17 +3,24 @@
         CurrentUser: {
         }
     };
-    function GetUser() {
-        Api.GetApiCall("Login", "GetFirstUser", function (event) {
+    function GetEmptyUser() {
+        Api.GetApiCall("Login", "GetEmptyUser", function (event) {
             $scope.models.CurrentUser = angular.fromJson(event.result);
         });
     }
+    
+    $scope.NavigateHome = function () {
+        Api.Post("Login", "Login", $scope.models.CurrentUser, function (event) {
+            if (event.result == true) {
+                window.location.replace("/Home/Index");
+            } else {
+                alert('User Not Authenticated');
+            }
+        });
+    };
+
+    GetEmptyUser();
 
 }
-function testClick() {
-    $scope.GetUser();
-    alert($scope.models.CurrentUser);
-}
-
 
 LoginController.$inject = ['$scope', 'Api'];
